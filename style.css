@@ -1,0 +1,304 @@
+:root{
+    font-size:20px;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:Helvetica, sans-serif;
+}
+body{
+    background-color: rgba(250, 250, 250, 0.932);
+    height:100vh;
+    overflow: hidden;
+}
+.svg{
+    position:absolute;
+    z-index: -1;
+}
+
+#svg_1{
+    right:12vw;
+    width:10vw;
+    animation:svggiro 1.5s ease forwards;
+}
+@keyframes svggiro{
+    from{
+        top:-20vh;
+        transform:rotate(0);
+
+    }to{
+        transform:rotate(240deg);
+        top:14vh;
+    }
+    
+}
+
+#svg_2{
+    top:-100px;
+    right:-100px;
+    width:25vw;
+    z-index:-2;
+    transform:translateY(-500px);
+    animation:entrada 1s ease forwards .4s;
+}
+#svg_3{
+    bottom:-45%;
+    left:-260px;
+    width:40vw;
+    z-index:-1;
+    transform:translateY(500px);
+    animation:entrada 1s ease forwards .1s;
+}
+.container{
+    width:100vw;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+}
+h1{
+    font-size:2.5rem;
+    color:rgb(61, 61, 61);
+}
+p{
+    margin-top:2%;
+    font-size:1rem;
+    color:gray;
+}
+.presentation{
+    transition:all .8s ease;
+}
+
+.byepresentation{
+    opacity:0;
+    transform:translateY(-200px);
+}
+
+.presentation h1{
+    opacity:0;
+    transform:translateY(30px);
+    animation:entrada 1s ease forwards 1s;
+}
+
+.presentation p{
+    opacity:0;
+    transform:translateY(30px);
+    animation:entrada 1s ease forwards 2s;
+    
+}
+
+@keyframes entrada{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.form{
+    width:32vw;
+    min-width:400px;
+    min-height: 410px;
+    height:58vh;
+    background-color: white;
+    border-radius:80px;
+    margin:auto;
+    margin-top:21vh;
+    opacity:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:0 7px 10px #7070707a;
+    padding:20px 40px;
+    transition: all .4s ease;   
+    transform: translateY(150px);
+
+}
+.fade{
+    animation:fadee .5s ease;
+}
+@keyframes fadee{
+    from{
+        opacity:1;
+    }to{
+        opacity:0;
+    }
+}
+.appear{
+   
+    animation:aparecer 3s ease forwards;
+}
+@keyframes aparecer{
+    to{
+        opacity:1;
+        transform: translateY(0);
+
+    }
+}
+
+.color-selection{
+    position:absolute;
+    background-color: #000545;
+    z-index:1;
+    width:50%;
+    height:100%;
+    border-radius:25px;
+    
+}
+.right{
+    animation:right .3s ease forwards;
+}
+.left{
+    animation:left .3s ease forwards;
+}
+
+@keyframes right{
+    to{
+   transform:translateX(100%);
+    }
+}
+@keyframes left{
+    from{
+        transform:translateX(100%);
+    }
+    to{
+        transform:translateX(0);
+     }
+}
+
+.form-container{
+    min-height: 410px;
+    min-width:400px;
+    width:80%;
+    height:80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding:5% 0;
+    position:relative;
+    overflow: hidden;
+}
+.change-selection{
+    color: #000545;
+    z-index:2;
+    font-weight:400;
+
+}
+.selected{   
+    color:white;
+}
+
+.change{
+    position:relative;
+    height:80px;
+    min-height: 80px;
+    border:2px solid rgb(234,234,234);
+    border-radius:25px;
+    width:80%;
+    display: flex;
+    align-items: center;
+}
+.form-selection{
+    cursor:pointer;
+    font-size:.7rem;
+    width:100%;
+    padding:0 8%;
+    display:flex;
+    justify-content: space-between;
+}
+.form-content{
+    width:200%;
+    height:80%;
+    display: flex;
+    position:absolute;
+    bottom:0;
+    left:0;
+    
+    
+}
+.form-init{
+    transform:translateX(0);
+}
+.form-signup{
+    animation:formder .3s ease forwards;
+    
+}
+.form-signin{
+    animation:formizq .3s ease forwards;
+}
+@keyframes formizq{
+    from{
+        transform:translateX(-50%);
+    }
+   to{
+        transform:translateX(0);
+    }
+}
+@keyframes formder{
+    to{
+        transform:translateX(-50%);
+        
+    }
+}
+.signin,.signup{
+    width:50%;
+    height:98%;
+    padding:5%;
+}
+
+.userid,.userpassword{
+    border:none;
+    border-bottom:4px solid #B0B0B0;
+    width:100%;
+    margin-top:10%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom:5px;
+    
+}
+input{
+    width:90%;
+    outline:none;
+    font-size:1rem;
+    border:none;
+    background-color: transparent;
+}
+.icon{
+    width:15px;
+    height:15px;
+}
+.remember{
+display: flex;
+align-items: center;
+margin:10% 0;
+
+}
+.rememberpass{
+    width:20px;
+}
+label{
+    font-size:.8rem;
+    color:rgb(99, 98, 98);
+}
+.actioncontainer{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.actionbutton,.actionregister1{
+    border-radius:35px;
+    padding:10px 30px;
+    background-color: #000545;
+    color:white;
+    
+}
+.actionregister{
+    margin-top:10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img class="svg" id="svg_1"src="resources/Elipse 6.svg" alt="">
+    <img class="svg" id="svg_2"src="resources/Elipse 4.svg" alt="">
+    <img class="svg" id="svg_3"src="resources/Elipse 5.svg" alt="">
+     <div class="presentation">
+        <div class="container">
+            <h1>Your notes Manager</h1>
+            <p> Find the benefits of organizing your life in notes</p>
+        </div>
+    </div> 
+
+    <div class="form">
+
+        <div class="form-container">
+
+                <div class="change">
+                    <div class="color-selection">
+                        
+                    </div>
+                    <div class="form-selection">
+                        <h2 onclick="signintoggle()" class="change-selection selected">Sign In</h2>
+                        <h2 onclick="signuptoggle()" class="change-selection"> Sign up</h2>
+                    </div>
+
+                </div>
+                <div class="form-content form-init">
+                    <div class="signin">
+                            <div class="userid">
+                                <img class="icon" src="resources/Grupo 7.svg" alt="no se ve"> 
+
+                                <input class="username" id="userin" type="text" placeholder="Username" required>
+                            </div>
+                            <div class="userpassword">
+                                <img class="icon" src="resources/Grupo 3.svg" alt=""> 
+                                <input class="password" id="passwordin"" type="password" name="password" placeholder="Password" required>
+                            </div>
+                            <div class="remember">
+                                <input class="rememberpass" id="rememberp" value="remember" type="checkbox">
+                                <label for="remember">Remember my password</label>
+
+                            </div>
+                          
+                            <div class="actioncontainer">
+                                <a class="actionbutton">Submit</a>
+                            </div>
+                    </div>
+
+                    <div class="signup">
+                        <div class="userid">
+                            <img class="icon" src="resources/Grupo 7.svg" alt="no se ve"> 
+
+                            <input class="username" id="userup" type="text" placeholder="Username" required>
+                        </div>
+                        <div class="userpassword">
+                            <img class="icon" src="resources/Grupo 3.svg" alt=""> 
+                            <input class="password" id="passup"type="password" name="regpassword" placeholder="Password" required>
+                        </div>
+                        <div class="userpassword">
+                            <img class="icon" src="resources/Grupo 3.svg" alt=""> 
+                            <input class="password2" type="password" name="confpassword" placeholder="Confirm Password" required>
+                        </div>
+                   
+                      
+                        <div class="actionregister">
+                            <a class="actionregister1">Register</a>
+                        </div>
+                </div>
+
+              
+                </div>
+               
+       
+        </div>
+        
+        
+
+
+    </div>
+    
+    <div class="app">
+
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
