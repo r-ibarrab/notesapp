@@ -1,29 +1,197 @@
 const app = document.querySelector(".app");
-
-let enterstate="signin";
+let activeuser='';
+let notesuser =[];
+let homeworkuser =[];
 let users;
-if(users){
- users = JSON.parse(localStorage.getItem("users"));
-}else{
-    users=null;
+let allnotes = JSON.parse(localStorage.getItem('notes')) || [];
+
+
+// ALL THE USERS ARE OBTAINED FROM TE LOCAL STORAGE
+if(localStorage.getItem("users")){
+    users = JSON.parse(localStorage.getItem("users"));
+   }else{
+       //IF THE LOCAL STORAGE IS EMPTY, USERS WOULD BE NULL
+       users=null;
+   }
+   
+const getallnotes=()=>{
+    allnotes = JSON.parse(localStorage.getItem('notes')) || [];
+    getusernotes();
+    
+    
+
+}
+
+const retnote = (notetext)=>{
+
+            let note = ` <div class="note-content">
+            
+            <span value="${notetext}"class="text">
+            ${notetext}
+            </span>
+            <div class="trash">X</div>
+
+        </div>`
+       
+        return note
+
 }
 
 
 
 
+const chargenotes=() =>{
+
+    notesuser.forEach(note=>{
+        let notehtml = retnote(note.note);
+        let divnote = document.createElement('div');
+        divnote.innerHTML = notehtml
+        divnote.classList.add("note")
+        
+        document.querySelector(".right-content").appendChild(divnote);
+    
+       })
+      
+
+}
+const rendernotes = ()=>{
+
+const myNode = document.querySelector(".right-content");
+console.log(myNode);
+  while (myNode.childNodes[0]) {
+    myNode.removeChild(myNode.lastChild);
+  }
+
+   notesuser.forEach(note=>{
+    let notehtml = retnote(note.note);
+    let divnote = document.createElement('div');
+    divnote.innerHTML = notehtml
+    divnote.classList.add("note")
+
+    divnote.addEventListener('click', (e)=>{
+        console.log(e.target)
+        e.target.parentNode.parentNode.remove();
+        console.log(e.target.parentNode.childNodes[0])
+      
+    })
+    
+    document.querySelector(".right-content").appendChild(divnote);
+   })
+   
+
+
+}
+
+const getusernotes = ()=>{
+    notesuser=[];
+    if (allnotes){
+        allnotes.forEach(note=>{
+            if(note.user === activeuser){
+                notesuser.push(note);
+            }
+        })
+    }
+
+}
+
+const createnote=()=>{
+   
+    const a = prompt('What are you thinking?');
+
+    const newNote = {
+        note: a,
+        user: activeuser
+    }
+
+
+    allnotes.push(newNote);
+    console.log(allnotes);
+   
+    localStorage.setItem('notes', JSON.stringify(allnotes))
+    getallnotes();
+    rendernotes();
+
+}
+
+function retapp(user){
+
+    activeuser = user.username;
+    
+   getallnotes();
+        
+    let appcontent = ` 
+         <div class="app-container">
+
+
+        <div class="leftapp">
+            <div class="left-content">
+                <div class="user">
+                    <h1 class="usertitle">${user.username[0].toUpperCase()}</h1>
+                </div>
+                <div class="categories">
+
+                    <div class="homework">
+                        <img class="homeworkimg" src="https://cdn.onlinewebfonts.com/svg/img_310105.png" alt="texto">
+                        <h3> H.W.</h3>
+                    </div>
+
+                    <div class="notes">
+                        <img class="notesimg" src="https://simpleicon.com/wp-content/uploads/note.png" alt="texto">
+                        <h3> Notes</h3>
+                    </div>
+                </div>
+                <div class="logout-container">
+                    <h3 onclick="location.reload()"class="logout">Log out</h3>
+                </div>
+            </div>
+        </div>
+        <div class="rightapp">
+            <img class="add-button" onclick="createnote()"src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/plus-512.png" alt="create" >
+            <div class="title">
+
+            </div>
+            
+            <div class="right-content">
+
+
+            </div>
+
+        </div>
+
+
+    </div>`;    
+
+
+    return appcontent;
+}
+
+//ANIMATION TO SHOW THE FORM
 const showform=()=>{
    document.querySelector(".form").classList.add('appear');
 
 }
+//THIS METHOD IS CALLED WHEN THE SIGN IN OR THE SIGN UP ARE SUCCESFULL
+function getapp(user){
+    let formc = document.querySelector(".form")
+    formc.classList.add('fade');
+    formc.classList.remove('appear');
 
 
+    
+    
+    formc.addEventListener('animationend',()=>{
+        formc.remove();
+        app.innerHTML=retapp(user);
+    })
+    getusernotes();
 
-function getapp(){
-    document.querySelector(".form").parentNode.removeChild(document.querySelector(".form"));
-   
-    app.innerHTML="<h1> hola jeje</h1>"
+    setTimeout(()=>{
+        rendernotes()
+    }
+    ,800)
 }
 
+//TIMER TO HIDE THE TITLE 
 setTimeout(()=>{
         const presen = document.querySelector(".presentation")
         presen.classList.add("byepresentation");
@@ -36,12 +204,8 @@ setTimeout(()=>{
         })
 },5000)
 
-function signin(){
-    
-}
-
+//ANIMATION TO SLIDE THE FORM TO THE LEFT
 function signintoggle(){
-    console.log("izq ");
 
     document.querySelector(".color-selection").classList.add("left");
     document.querySelector(".color-selection").classList.remove("right");
@@ -51,12 +215,11 @@ function signintoggle(){
     document.querySelector(".form-content").classList.add("form-signin");
     document.querySelector(".form-content").classList.remove("form-signup");
     document.querySelector(".form-content").classList.remove("form-init");
-
-
 }
+
+//ANIMATION TO SLIDE THE FORM TO THE RIGHT
 function signuptoggle(){
     
-    console.log("der ");
 
     document.querySelector(".color-selection").classList.add("right");
     document.querySelector(".color-selection").classList.remove("left");
@@ -68,25 +231,29 @@ function signuptoggle(){
     document.querySelector(".form-content").classList.add("form-signup");
     
 }
-
+//WITH THIS EVENT YOU COLLECT THE DATA FROM THE INPUTS TO START THE LOGIN PROCESS
 document.querySelector(".actionbutton").addEventListener("click",()=>{
 
-    
-  
     const username = document.querySelector('#userin').value;
     const userpass = document.querySelector('#passwordin').value;
     const remember = document.querySelector('#rememberp').checked;
     if(users){
+        let correct = 0;
                 users.forEach(user => {
                     
                     if(user.username === username && user.password === userpass){
-                        return getapp();
+                        correct = 1;
+                        return getapp(user);
                     }
                 });
+                correct === 0  && alert("Incorrect or nonexistent user")
+
          }else{
-             alert("There are no users registered")
+             return alert("There are no users registered")
          }
     })
+
+    //WITH THIS EVENT YOU COLLECT THE DATA FROM THE SIGN UP INPUTS TO START THE SIGN UP PROCESS
  document.querySelector(".actionregister").addEventListener("click",()=>{
     const username = document.querySelector('#userup').value;
     const password = document.querySelector('#passup').value;
@@ -97,18 +264,14 @@ document.querySelector(".actionbutton").addEventListener("click",()=>{
     const newUser= {
         username,
         password,
-        homeworks:[],
-        notes:[]
     }
 
     if(password!=confirm){
         return alert("Passwords don't match")
     }
 
-    if(users !=null){
-
-        users.forEach(user => {
-            
+    if(users!=null){
+        users.forEach(user => {        
             if(user.username === username){
                 exists=1;
                 return alert("The user already exists")
@@ -117,26 +280,31 @@ document.querySelector(".actionbutton").addEventListener("click",()=>{
         });
         if(exists===0){
              users.push(newUser);
+             localStorage.setItem("users",JSON.stringify(users))
            
         }
-       
-
     }else{
         
-        if(exists===0){
+       
             localStorage.setItem('users',JSON.stringify([
                 newUser
             ]));
-            console.log(users)
-            
-            
-        }
+            console.log(users)   
         
     }
-    getapp();
-        
-        
-        
-        
+
+    getapp(newUser);  
 })
     
+
+
+
+
+
+
+
+
+
+
+
+

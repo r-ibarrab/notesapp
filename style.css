@@ -116,7 +116,7 @@ p{
 
 }
 .fade{
-    animation:fadee .5s ease;
+    animation:fadee .3s ease;
 }
 @keyframes fadee{
     from{
@@ -127,7 +127,7 @@ p{
 }
 .appear{
    
-    animation:aparecer 3s ease forwards;
+    animation:aparecer 1.5s ease forwards;
 }
 @keyframes aparecer{
     to{
@@ -301,4 +301,134 @@ label{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.app-container{
+    display:flex;
+
+}
+.rightapp{
+    width:100%;
+    height:100vh;
+    background:white;
+}
+.leftapp{
+    z-index:2;
+    min-width:150px;
+    width:18%;
+    height:100vh;
+    background:rgb(238, 231, 231);
+    box-shadow: 3px 0px 10px rgb(150, 150, 150);
+    position:relative;
+}
+.user{
+    width:8vw;
+    margin:15% auto;
+    height:8vw;
+    border-radius:50%;
+    border:1px solid rgba(128, 128, 128, 0.336);
+    box-shadow: 2px 2px 7px rgb(170, 169, 169);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.categories{
+    width:100%;
+    margin:0;
+    margin-top:30%;
+    min-height: 90px;
+    height:20vh;
+    display: flex;
+    
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+  
+
+}
+h3{
+    color:rgb(49, 49, 49);
+
+}
+.homework, .notes{
+    height:32%;
+    margin:10px auto;
+    width:80%;
+    display: grid;
+    column-gap: 10px;
+    grid-template: 100% / 1fr 3fr ;
+    cursor:pointer;
+    
+}
+
+.notesimg, .homeworkimg{
+    width:30px;
+}
+.logout-container{
+    position:absolute;
+    bottom:3%;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:0 auto;
+    
+    
+}
+.logout{
+    font-size:18px;
+    cursor:pointer;
+}
+
+.add-button{
+    cursor:pointer;
+    position:absolute;
+    top:20px;
+    right:20px;
+    width:50px;
+}
+
+
+.rightapp{
+    overflow-y: scroll;
+    padding:3%;
+   
+}
+.right-content{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+
+}
+.note-content{
+        display: flex;
+        justify-content: space-between;
+        width:700px;
+        height: 75px;
+        background-color: rgb(253, 253, 229);
+        border-radius:25px;
+        border:2px solid rgba(128, 128, 128, 0.281);
+        z-index:4;
+        margin:6px 0;
+
+}
+.text{
+    height:100%;
+    width:80%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left:50px;
+}
+.trash{
+    border-radius:0px 25px 25px 0px;
+    padding:6px;
+    height:100%;
+    width:20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    background-color: red;
+    cursor:pointer;
 }
