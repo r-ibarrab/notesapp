@@ -26,7 +26,7 @@ const retnote = (notetext)=>{
 
             let note = ` <div class="note-content">
             
-            <span value="${notetext}"class="text">
+            <span class="text">
             ${notetext}
             </span>
             <div class="trash">X</div>
@@ -69,9 +69,10 @@ console.log(myNode);
     divnote.classList.add("note")
 
     divnote.addEventListener('click', (e)=>{
-        console.log(e.target)
         e.target.parentNode.parentNode.remove();
-        console.log(e.target.parentNode.childNodes[0])
+        allnotes.splice(e.target.parentNode.children[0].innerText, 1)
+        localStorage.setItem('notes', JSON.stringify(allnotes))
+        getallnotes();
       
     })
     
@@ -236,7 +237,7 @@ document.querySelector(".actionbutton").addEventListener("click",()=>{
 
     const username = document.querySelector('#userin').value;
     const userpass = document.querySelector('#passwordin').value;
-    const remember = document.querySelector('#rememberp').checked;
+   
     if(users){
         let correct = 0;
                 users.forEach(user => {
