@@ -69,9 +69,9 @@ console.log(myNode);
     divnote.classList.add("note")
 
     divnote.addEventListener('click', (e)=>{
-        e.target.parentNode.parentNode.remove();
         allnotes.splice(e.target.parentNode.children[0].innerText, 1)
         localStorage.setItem('notes', JSON.stringify(allnotes))
+        e.target.parentNode.parentNode.remove();
         getallnotes();
       
     })
