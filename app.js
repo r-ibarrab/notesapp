@@ -1,7 +1,5 @@
 const app = document.querySelector(".app");
 let activeuser='';
-let notesuser =[];
-let homeworkuser =[];
 let users;
 let allnotes = JSON.parse(localStorage.getItem('notes')) || [];
 
@@ -16,84 +14,63 @@ if(localStorage.getItem("users")){
    
 const getallnotes=()=>{
     allnotes = JSON.parse(localStorage.getItem('notes')) || [];
-    getusernotes();
     
-    
-
 }
 
-const retnote = (notetext)=>{
+
+const retnote = (notetext, c)=>{
 
             let note = ` <div class="note-content">
             
             <span class="text">
             ${notetext}
             </span>
-            <div class="trash">X</div>
+            <div class="trash" id="${c}">X</div>
 
         </div>`
        
-        return note
+        return note;
 
 }
 
-
-
-
-const chargenotes=() =>{
-
-    notesuser.forEach(note=>{
-        let notehtml = retnote(note.note);
-        let divnote = document.createElement('div');
-        divnote.innerHTML = notehtml
-        divnote.classList.add("note")
-        
-        document.querySelector(".right-content").appendChild(divnote);
-    
-       })
-      
-
-}
 const rendernotes = ()=>{
 
-const myNode = document.querySelector(".right-content");
-console.log(myNode);
-  while (myNode.childNodes[0]) {
-    myNode.removeChild(myNode.lastChild);
-  }
+    const myNode = document.querySelector(".right-content");
+    console.log(myNode);
+    while (myNode.childNodes[0]) {
+        myNode.removeChild(myNode.lastChild);
+    }
 
-   notesuser.forEach(note=>{
-    let notehtml = retnote(note.note);
-    let divnote = document.createElement('div');
-    divnote.innerHTML = notehtml
-    divnote.classList.add("note")
+    allnotes.forEach((note , c)=>{
 
-    divnote.addEventListener('click', (e)=>{
-        allnotes.splice(e.target.parentNode.children[0].innerText, 1)
-        localStorage.setItem('notes', JSON.stringify(allnotes))
-        e.target.parentNode.parentNode.remove();
-        getallnotes();
-      
-    })
-    
-    document.querySelector(".right-content").appendChild(divnote);
+            if(note.user === activeuser){
+
+                let notehtml = retnote(note.note, c);
+                let divnote = document.createElement('div');
+                divnote.innerHTML = notehtml
+                divnote.classList.add("note")
+                
+
+                divnote.addEventListener('click', (e)=>{
+                    allnotes.splice(e.target.id, 1)
+                    localStorage.setItem('notes', JSON.stringify(allnotes))
+                    e.target.parentNode.parentNode.remove();
+                    getallnotes();
+                
+                })
+
+                document.querySelector(".right-content").appendChild(divnote);
+
+            }
+
+        
    })
    
 
 
 }
 
-const getusernotes = ()=>{
-    notesuser=[];
-    if (allnotes){
-        allnotes.forEach(note=>{
-            if(note.user === activeuser){
-                notesuser.push(note);
-            }
-        })
-    }
 
-}
 
 const createnote=()=>{
    
@@ -173,23 +150,20 @@ const showform=()=>{
 }
 //THIS METHOD IS CALLED WHEN THE SIGN IN OR THE SIGN UP ARE SUCCESFULL
 function getapp(user){
+
     let formc = document.querySelector(".form")
     formc.classList.add('fade');
     formc.classList.remove('appear');
 
 
-    
-    
     formc.addEventListener('animationend',()=>{
         formc.remove();
         app.innerHTML=retapp(user);
-    })
-    getusernotes();
+        rendernotes();
 
-    setTimeout(()=>{
-        rendernotes()
-    }
-    ,800)
+    })
+    
+
 }
 
 //TIMER TO HIDE THE TITLE 
